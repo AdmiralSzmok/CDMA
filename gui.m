@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 24-Jun-2014 11:30:18
+% Last Modified by GUIDE v2.5 24-Jun-2014 12:45:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,31 +86,6 @@ blad=round(bladv);
 [simBER]=elo(bit,blad);
 set(handles.s3,'String',simBER);
 
-
-% --- Executes on slider movement.
-function B_Callback(hObject, eventdata, handles)
-% hObject    handle to B (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-handles.B=get(hObject,'Value');
-set(handles.s1,'String',round(get(hObject,'Value')));
-guidata(hObject, handles); 
-% Hints: get(hObject,'String') returns contents of B as text
-%        str2double(get(hObject,'String')) returns contents of B as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function B_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to B (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: slider controls usually have a light gray background.
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-
 % --- Executes on slider movement.
 function ebn0_Callback(hObject, eventdata, handles)
 % hObject    handle to ebn0 (see GCBO)
@@ -146,86 +121,13 @@ blad=round(bladv);
 set(handles.s3,'String',simBER);
 
 
-% --- Executes on button press in pb1.
-function pb1_Callback(hObject, eventdata, handles)
-% hObject    handle to pb1 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes1);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot1(bit,blad);
-
-% --- Executes on button press in pb2.
-function pb2_Callback(hObject, eventdata, handles)
-% hObject    handle to pb2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes2);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot2(bit,blad);
-
-% --- Executes on button press in pb3.
-function pb3_Callback(hObject, eventdata, handles)
-% hObject    handle to pb3 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes3);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot3(bit,blad);
-
-% --- Executes on button press in pb4.
-function pb4_Callback(hObject, eventdata, handles)
-% hObject    handle to pb4 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes4);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot4(bit,blad);
-
-% --- Executes on button press in pb5.
-function pb5_Callback(hObject, eventdata, handles)
-% hObject    handle to pb5 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes5);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot5(bit,blad);
-
-% --- Executes on button press in pb6.
-function pb6_Callback(hObject, eventdata, handles)
-% hObject    handle to pb6 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes6);
-bitv=floor(handles.B);
-bit=round(bitv);
-bladv=floor(handles.ebn0);
-blad=round(bladv);
-plot6(bit,blad);
-
-
 % --- Executes on button press in pushbutton9.
 function pushbutton9_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton9 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-[ t, d_d, dane, bpsk_mod, szum, nosna_p, odfiltr, ipHatn, simBER ] = elo2( handles.ebn0 )
+[ t, d_d, dane, bpsk_mod, szum, nosna_p, odfiltr, wnew, simBER ] = elo2( handles.ebn0 );
 axes(handles.axes1);
 plot(t,d_d); 
 axis([0 length(dane) -0.5 1.5])
@@ -243,7 +145,7 @@ plot(t, odfiltr)
 axis([0 length(dane) -1.5 1.5])
 axes(handles.axes4);
 t = linspace(0,length(dane),length(dane)*15);  
-plot(t,ipHatn); 
+plot(t,wnew); 
 axis([0 length(dane) -0.5 1.5])
 
 set(handles.s3,'String',simBER);
